@@ -63,7 +63,8 @@ export const getSessionMessages = async (sessionId: number): Promise<Message[]> 
 export const createSession = async (title: string = 'New Chat'): Promise<number> => {
     const db = await getDB();
     if (!db) return -1;
-    return db.add(STORE_SESSIONS, { title, timestamp: Date.now() });
+    const id = await db.add(STORE_SESSIONS, { title, timestamp: Date.now() });
+    return id as number;
 };
 
 export const getAllSessions = async (): Promise<ChatSession[]> => {
